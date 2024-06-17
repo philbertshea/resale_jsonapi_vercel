@@ -33,4 +33,4 @@ EXPOSE ${PORT}
 
 ARG SERVER_PORT=0.0.0.0:${PORT}
 
-ENTRYPOINT ["gunicorn", "-b", ${SERVER_PORT}, "wsgi:app"]
+CMD [ "gunicorn" , "-b" , ${SERVER_PORT} , "app:app" ]
