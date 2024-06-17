@@ -28,5 +28,7 @@ RUN pip install -r requirements.txt --no-cache-dir
 # Copy the rest of the application code
 COPY . .
 
-# Command to run the application
-CMD ["gunicorn", "main:app"]
+# Expose the port the app runs on
+EXPOSE ${PORT}
+
+CMD ["gunicorn"  , "--timeout" , "120" ,"-b", "0.0.0.0:${PORT}", "wsgi:app"]
