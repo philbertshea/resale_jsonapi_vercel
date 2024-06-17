@@ -33,4 +33,4 @@ EXPOSE ${PORT}
 
 ARG SERVER_PORT=0.0.0.0:${PORT}
 
-CMD ["gunicorn"  , "--timeout" , "120" ,"-b", SERVER_PORT, "wsgi:app"]
+CMD ["gunicorn" , "--timeout" , "120" ,"-b", ${SERVER_PORT}, "wsgi:app"]
