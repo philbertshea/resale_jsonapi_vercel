@@ -33,4 +33,4 @@ EXPOSE ${PORT}
 
 ARG SERVER_PORT=0.0.0.0:${PORT}
 
-CMD [ "gunicorn" , "-b" , ${SERVER_PORT} , "app:app" ]
+CMD [ "gunicorn", "-b", ${SERVER_PORT}, "app:app" ]
