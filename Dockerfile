@@ -25,7 +25,7 @@ RUN pip install -r requirements.txt --no-cache-dir
 COPY . .
 
 # Expose the port
-EXPOSE 443
+EXPOSE 3000
 
 # Command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "$PORT"]
