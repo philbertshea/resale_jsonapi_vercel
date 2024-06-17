@@ -11,7 +11,7 @@ app = Flask(__name__)
 def download_selenium():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     driver.get("https://google.com")
     title = driver.title
     language = driver.find_element(By.XPATH, "//div[@id='SIvCob']").text
