@@ -28,6 +28,11 @@ RUN wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/
     && rm chrome-linux64.zip \
     && ln -s /opt/chrome-linux64/chrome /usr/local/bin/google-chrome
 
+# Download and install specific version of ChromeDriver (126.0.6478.61)
+RUN wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/linux64/chromedriver-linux64.zip \
+    && unzip chromedriver-linux64.zip -d /usr/local/bin/ \
+    && rm chromedriver-linux64.zip
+    
 # Upgrade pip
 RUN pip install --upgrade pip
 
