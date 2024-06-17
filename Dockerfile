@@ -22,12 +22,11 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     && apt-get clean
 
-# Install Google Chrome
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable
-    
+# Install specific version of Google Chrome (114.0.5735.90)
+RUN wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.90-1_amd64.deb \
+    && dpkg -i google-chrome-stable_114.0.5735.90-1_amd64.deb || apt-get -fy install \
+    && rm google-chrome-stable_114.0.5735.90-1_amd64.deb
+
 # Upgrade pip
 RUN pip install --upgrade pip
 
