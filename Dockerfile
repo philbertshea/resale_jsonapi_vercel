@@ -31,4 +31,4 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE ${PORT}
 
-CMD ["gunicorn"  , "--timeout" , "120" ,"-b", "0.0.0.0:${PORT}", "wsgi:app"]
+CMD ["gunicorn"  , "--timeout" , "120" ,"-b", "0.0.0.0:$PORT", "wsgi:app"]
