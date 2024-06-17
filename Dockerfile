@@ -28,4 +28,8 @@ RUN pip install -r requirements.txt --no-cache-dir
 # Copy the rest of the application code
 COPY . .
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+# Expose the port the app runs on
+EXPOSE 8000
+
+# Command to run the application
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
