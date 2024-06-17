@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     libnss3 \
     libgconf-2-4 \
     libfontconfig1 \
+    google-chrome-stable \
     && apt-get clean
 
 # Upgrade pip

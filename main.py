@@ -6,13 +6,15 @@ from selenium.webdriver.common.by import By
 import os
 
 app = Flask(__name__)
-
+GOOGLE_CHROME_BIN = '/app/.apt/usr/bin/google-chrome'
 
 def download_selenium():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-gpu")
+    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     driver.get("https://google.com")
     title = driver.title
