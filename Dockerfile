@@ -22,12 +22,12 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     && apt-get clean
 
-# Download and install specific version of Google Chrome (114.0.5735.90)
-RUN wget https://storage.googleapis.com/chrome-for-testing-public/114.0.5735.90/linux64/chrome-linux64.zip \
+# Download and install specific version of Google Chrome (126.0.6478.61)
+RUN wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/linux64/chrome-linux64.zip \
     && unzip chrome-linux64.zip -d /opt/ \
     && rm chrome-linux64.zip \
     && ln -s /opt/chrome-linux64/chrome /usr/local/bin/google-chrome
-    
+
 # Upgrade pip
 RUN pip install --upgrade pip
 

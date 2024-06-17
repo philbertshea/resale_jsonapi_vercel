@@ -16,7 +16,7 @@ def download_selenium():
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--window-size=1920x1080")
     # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager(version='114.0.5735.90').install()), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(version='126.0.6478.61').install()), options=chrome_options)
     driver.get("https://google.com")
     title = driver.title
     language = driver.find_element(By.XPATH, "//div[@id='SIvCob']").text
