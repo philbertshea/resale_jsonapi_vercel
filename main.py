@@ -25,7 +25,8 @@ def download_selenium():
 @app.route('/', methods = ['GET','POST'])
 def home():
     if (request.method == 'GET'):
-        return download_selenium()
+        print("Hi")
+        return "Hi"
 
 
 if __name__ == "__main__":
