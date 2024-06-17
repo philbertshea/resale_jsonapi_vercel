@@ -3,6 +3,7 @@ from flask import Flask, request
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+import os
 
 app = Flask(__name__)
 
@@ -29,5 +30,5 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=os.getenv("PORT", default=5000))
     

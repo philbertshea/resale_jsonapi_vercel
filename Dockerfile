@@ -27,3 +27,5 @@ RUN pip install -r requirements.txt --no-cache-dir
 
 # Copy the rest of the application code
 COPY . .
+
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
