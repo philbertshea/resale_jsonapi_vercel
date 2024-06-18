@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 import os
 
 app = Flask(__name__)
-GOOGLE_CHROME_BIN = '/app/.apt/usr/local/bin/google-chrome'
 
 def download_selenium():
     chrome_options = webdriver.ChromeOptions()
@@ -21,7 +20,7 @@ def download_selenium():
     chrome_options.add_argument('--data-path=/tmp/data-path')
     chrome_options.add_argument('--homedir=/tmp')
     chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
-    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.binary_location = '/usr/local/bin/google-chrome'
     driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=chrome_options)
     driver.get("https://google.com")
     title = driver.title
