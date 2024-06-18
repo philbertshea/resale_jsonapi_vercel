@@ -16,7 +16,7 @@ def download_selenium():
     
     #chrome_options.add_argument("--disable-gpu")
     # chrome_options.add_argument("--window-size=1920x1080")
-    #chrome_options.add_argument('--remote-debugging-port=9222')  # Add this line
+    chrome_options.add_argument('--remote-debugging-port=9222')  # Add this line
     #chrome_options.add_argument('--window-size=1280x1696')
     #chrome_options.add_argument('--user-data-dir=/tmp/user-data')
     #chrome_options.add_argument('--data-path=/tmp/data-path')
