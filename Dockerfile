@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     gnupg \
+    curl \
+    xvfb \
     && apt-get clean
 
 # Download and install specific version of Google Chrome (126.0.6478.61)
@@ -30,11 +32,12 @@ RUN wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/
 
 # Download and install specific version of ChromeDriver (126.0.6478.61)
 RUN wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/linux64/chromedriver-linux64.zip \
-    && unzip chromedriver-linux64.zip -d /usr/local/bin/ \
-    && rm chromedriver-linux64.zip 
+    && unzip chromedriver-linux64.zip -d /opt/ \
+    && rm chromedriver-linux64.zip \
+    && ln -s /opt/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
 
 # Ensure the chromedriver binary is executable
-RUN chmod +x /usr/local/bin/chromedriver-linux64/chromedriver
+RUN chmod +x /usr/local/bin/chromedriver
 
 # Upgrade pip
 RUN pip install --upgrade pip
