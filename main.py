@@ -17,11 +17,11 @@ def download_selenium():
     #chrome_options.add_argument("--disable-gpu")
     # chrome_options.add_argument("--window-size=1920x1080")
     chrome_options.add_argument('--remote-debugging-port=9222')  # Add this line
-    #chrome_options.add_argument('--window-size=1280x1696')
-    #chrome_options.add_argument('--user-data-dir=/tmp/user-data')
-    #chrome_options.add_argument('--data-path=/tmp/data-path')
-    #chrome_options.add_argument('--homedir=/tmp')
-    #chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
+    chrome_options.add_argument('--window-size=1280x1696')
+    chrome_options.add_argument('--user-data-dir=/tmp/user-data')
+    chrome_options.add_argument('--data-path=/tmp/data-path')
+    chrome_options.add_argument('--homedir=/tmp')
+    chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
     chrome_options.binary_location = '/usr/local/bin/google-chrome'
     driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", chrome_options=chrome_options)
     driver.get("https://google.com")
