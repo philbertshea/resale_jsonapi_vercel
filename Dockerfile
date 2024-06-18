@@ -32,7 +32,10 @@ RUN wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/
 RUN wget https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.61/linux64/chromedriver-linux64.zip \
     && unzip chromedriver-linux64.zip -d /usr/local/bin/ \
     && rm chromedriver-linux64.zip
-    
+
+# Ensure the chromedriver binary is executable
+RUN chmod +x /usr/local/bin/chromedriver
+
 # Upgrade pip
 RUN pip install --upgrade pip
 
