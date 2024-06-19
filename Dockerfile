@@ -48,9 +48,12 @@ RUN pip install -r requirements.txt --no-cache-dir
 # Copy the rest of the application code
 COPY . .
 
+ARG port=5000
+
+ENV port=$PORT
 # Expose the port the app runs on
-EXPOSE ${PORT}
+EXPOSE $port
 
-ARG SERVER_PORT=0.0.0.0:${PORT}
+ARG SERVER_PORT=0.0.0.0:$port
 
-CMD [ "gunicorn", "-b", ${SERVER_PORT}, "main:app" ]
+CMD ["gunicorn", "-w", "4", "-b", ${SERVER_PORT}, "main:app" ]
