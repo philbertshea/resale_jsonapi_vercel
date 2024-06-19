@@ -54,4 +54,4 @@ EXPOSE 5000
 ARG SERVER_PORT=0.0.0.0:${PORT:-5000}
 
 # Command to run the application using the PORT environment variable
-CMD ["sh", "-c", "gunicorn -w 4 -b 0.0.0.0:$SERVER_PORT app:app"]
+CMD ["sh", "-c", "gunicorn -w 4 -b 0.0.0.0:$SERVER_PORT main:app"]
