@@ -24,14 +24,18 @@ def download_selenium():
     options.add_argument('--disable-extensions')
     options.add_argument('--disable-software-rasterizer')
     options.binary_location = '/usr/local/bin/google-chrome'
-    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=options)
-    driver.get("https://google.com")
-    title = driver.title
-    language = driver.find_element(By.XPATH, "//div[@id='SIvCob']").text
+    try:
+        driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=options)
+        driver.get("https://google.com.sg")
+        title = driver.title
+        language = driver.find_element(By.XPATH, "//div[@id='SIvCob']").text
+    except:
+        print("Exception occurred")
+        title = 'NA'
+        language = 'NA'
     data = {'Page Title': title, 'Language': language}
     return data
-
-
+    
 @app.route('/', methods = ['GET','POST'])
 def home():
     if (request.method == 'GET'):
