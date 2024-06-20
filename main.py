@@ -27,9 +27,9 @@ def download_selenium():
     options.binary_location = '/usr/local/bin/google-chrome'
     try:
         driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=options)
-        driver.get("https://google.com.sg")
+        driver.get("https://smart.poems.com.sg/smartpark/")
         title = driver.title
-        langs = driver.find_element(By.CSS_SELECTOR, "div[id='SIvCob']").text
+        langs = driver.find_element(By.CSS_SELECTOR, "div[id='page']").text
     except Exception as e:
         logging.exception("Error Occurred")
         title = "NA"
