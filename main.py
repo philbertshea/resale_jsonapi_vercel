@@ -29,10 +29,12 @@ def download_selenium():
         driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=options)
         driver.get("https://google.com.sg")
         title = driver.title
+        langs = driver.find_element(By.CSS_SELECTOR, "div[id='SIvCob']").text
     except Exception as e:
         logging.exception("Error Occurred")
         title = "NA"
-    data = {'Page Title': title}
+        langs = "NA"
+    data = {'Page Title': title, "Languages": langs}
     return data
     
 @app.route('/', methods = ['GET','POST'])
@@ -43,4 +45,3 @@ def home():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     app.run(debug=True, host='0.0.0.0', port=port)
-    
