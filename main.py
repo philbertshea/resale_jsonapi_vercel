@@ -29,12 +29,10 @@ def download_selenium():
         driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=options)
         driver.get("https://google.com.sg")
         title = driver.title
-        language = driver.find_element(By.XPATH, "//div[@id='SIvCob']").text
     except Exception as e:
         logging.exception("Error Occurred")
-        title = e
-        language = 'NA'
-    data = {'Page Title': title, 'Language': language}
+        title = "NA"
+    data = {'Page Title': title}
     return data
     
 @app.route('/', methods = ['GET','POST'])
