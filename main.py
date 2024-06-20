@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import os
+import logging
 
 app = Flask(__name__)
 
@@ -29,9 +30,9 @@ def download_selenium():
         driver.get("https://google.com.sg")
         title = driver.title
         language = driver.find_element(By.XPATH, "//div[@id='SIvCob']").text
-    except:
-        print("Exception occurred")
-        title = 'NA'
+    except Exception as e:
+        logging.exception("Error Occurred")
+        title = e
         language = 'NA'
     data = {'Page Title': title, 'Language': language}
     return data
