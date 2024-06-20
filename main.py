@@ -9,21 +9,22 @@ import os
 app = Flask(__name__)
 
 def download_selenium():
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    
-    chrome_options.add_argument("--disable-gpu")
-    # chrome_options.add_argument("--window-size=1920x1080")
-    chrome_options.add_argument('--remote-debugging-port=9222')  # Add this line
-    chrome_options.add_argument('--window-size=1280x1696')
-    chrome_options.add_argument('--user-data-dir=/tmp/user-data')
-    chrome_options.add_argument('--data-path=/tmp/data-path')
-    chrome_options.add_argument('--homedir=/tmp')
-    chrome_options.add_argument('--disk-cache-dir=/tmp/cache-dir')
-    chrome_options.binary_location = '/usr/local/bin/google-chrome'
-    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", chrome_options=chrome_options)
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--remote-debugging-port=9222')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1280x1696')
+    options.add_argument('--user-data-dir=/tmp/user-data')
+    options.add_argument('--data-path=/tmp/data-path')
+    options.add_argument('--homedir=/tmp')
+    options.add_argument('--disk-cache-dir=/tmp/cache-dir')
+    options.add_argument('--single-process')
+    options.add_argument('--disable-extensions')
+    options.add_argument('--disable-software-rasterizer')
+    options.binary_location = '/usr/local/bin/google-chrome'
+    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=options)
     driver.get("https://google.com")
     title = driver.title
     language = driver.find_element(By.XPATH, "//div[@id='SIvCob']").text
