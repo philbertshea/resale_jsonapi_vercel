@@ -29,6 +29,7 @@ RUN apt-get update && apt-get install -y \
     libu2f-udev \
     libvulkan1 \
     xvfb \
+    xauth \
     --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
