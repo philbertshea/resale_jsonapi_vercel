@@ -24,6 +24,7 @@ def download_selenium():
     options.add_argument('--single-process')
     options.add_argument('--disable-extensions')
     options.add_argument('--disable-software-rasterizer')
+    options.add_argument('--no-zygote')
     options.add_argument('--disable-dev-shm-usage')
     options.binary_location = '/usr/local/bin/google-chrome'
     try:
@@ -31,11 +32,12 @@ def download_selenium():
         driver.get("https://smart.poems.com.sg/smartpark/")
         title = driver.title
         langs = driver.find_element(By.CSS_SELECTOR, "div[id='page']").text
-        driver.quit()
     except Exception as e:
         logging.exception("Error Occurred")
         title = "NA"
         langs = "NA"
+    finally:
+        driver.quit()
     data = {'Page Title': title, "Languages": langs}
     return data
     
