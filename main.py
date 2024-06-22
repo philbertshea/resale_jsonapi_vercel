@@ -9,7 +9,6 @@ app = Flask(__name__)
 def hello():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
-    options.add_argument("--start-maximized")
     options.binary_location = '/usr/local/bin/google-chrome'
 
     # Specify the path to the ChromeDriver executable
