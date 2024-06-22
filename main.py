@@ -45,7 +45,8 @@ def hello():
     options.add_argument('--enable-automation')
     options.add_argument('--password-store=basic')
     options.add_argument('--use-mock-keychain')
-
+    options.binary_location = '/usr/local/bin/google-chrome'
+    
     # Specify the path to the ChromeDriver executable
     driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', options=options)
     driver.get("https://smart.poems.com.sg/smartpark/")
