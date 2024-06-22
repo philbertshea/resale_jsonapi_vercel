@@ -30,6 +30,8 @@ RUN apt-get update && apt-get install -y \
     libvulkan1 \
     xvfb \
     xauth \
+    sudo \
+    lsof \
     --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -61,4 +63,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to run the application using the PORT environment variable
-CMD ["sh", "-c", "xvfb-run gunicorn -w 4 -b 0.0.0.0:${PORT} main:app"]
+CMD ["sh", "-c", "kill -9 $(lsof -t -i:9230) && xvfb-run gunicorn -w 4 -b 0.0.0.0:${PORT} main:app"]
