@@ -11,7 +11,7 @@ def hello():
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--remote-debugging-port=9222')
+    options.add_argument('--remote-debugging-port=9230')
     options.add_argument('--disable-gpu')
     options.add_argument('--window-size=1280x1696')
     options.add_argument('--user-data-dir=/tmp/user-data')
@@ -46,7 +46,7 @@ def hello():
     options.add_argument('--password-store=basic')
     options.add_argument('--use-mock-keychain')
     options.binary_location = '/usr/local/bin/google-chrome'
-    
+
     # Specify the path to the ChromeDriver executable
     driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', options=options)
     driver.get("https://smart.poems.com.sg/smartpark/")
