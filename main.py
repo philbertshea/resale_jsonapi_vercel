@@ -13,6 +13,8 @@ def hello():
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--remote-debugging-port=9230')
     options.add_argument('--disable-gpu')
+    options.add_argument('--disable-setuid-sandbox')
+    options.add_argument("--window-size=1920,1080")
     options.binary_location = '/usr/local/bin/google-chrome'
 
     # Specify the path to the ChromeDriver executable
