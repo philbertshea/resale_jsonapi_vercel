@@ -61,4 +61,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to run the application using the PORT environment variable
-CMD ["sh", "-c", "xvfb-run --server-args='-screen 0 1280x1024x24' gunicorn -w 4 -b 0.0.0.0:${PORT} main:app"]
+CMD ["sh", "-c", "xvfb-run gunicorn -w 4 -b 0.0.0.0:${PORT} main:app"]

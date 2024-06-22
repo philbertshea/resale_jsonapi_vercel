@@ -13,7 +13,6 @@ def hello():
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--remote-debugging-port=9230')
     options.add_argument('--disable-gpu')
-    options.add_argument('--window-size=1280x1696')
     options.add_argument('--user-data-dir=/tmp/user-data')
     options.add_argument('--data-path=/tmp/data-path')
     options.add_argument('--homedir=/tmp')
