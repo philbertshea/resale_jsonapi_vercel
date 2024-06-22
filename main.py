@@ -19,6 +19,8 @@ def hello():
     driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', options=options)
     driver.get("https://smart.poems.com.sg/smartpark/")
     title = driver.title
+    driver.stop_client()
+    driver.close()
     driver.quit()
 
     return f"The title of the page is: {title}"
