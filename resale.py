@@ -11,19 +11,18 @@ import xlsxwriter
 import time
 import json
 
-driver = webdriver.Chrome()
 ROOT = "https://homes.hdb.gov.sg/home/finding-a-flat"
 
 def scrape_page_fast(driver, location, start_page, item_count):
     data_array = []
     driver.get(ROOT)
-    time.sleep(3)                                               
     section = driver.find_element(By.CSS_SELECTOR, "body").find_element(By.CSS_SELECTOR, "div[class='listing-portion']")
     section = section.find_element(By.CSS_SELECTOR, "div[class='listings']").find_element(By.CSS_SELECTOR, "div[class='container']")
     section.find_element(By.XPATH, ".//div[4]/app-flat-cards-categories").click()
-    time.sleep(3)
     driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div").click() # Click Location Dropdown
-    driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div[@id='searchWrapper']/div[@id='address']").click()
+    driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div[@id='searchWrapper']/div[@id='address']/div[2]/ul/li/a").send_keys(Keys.ENTER)
+    driver.get_screenshot_as_file("screenshot.png")
+    print(driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div").text)
     driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div/div/div/input").send_keys(location)
     driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div/div/div/input").send_keys(Keys.ENTER)
     
@@ -253,18 +252,20 @@ def scrape_individual(driver, count, worksheet):
         worksheet.write(count, 19, "Agent")
     else:
         worksheet.write(count, 19, "Non-Agent")
-    
-def get_all_resale_data(start_page, location):
-    workbook = xlsxwriter.Workbook('resaledata.xlsx')
-    worksheet = workbook.add_worksheet()
-    try:
-        scrape_page(driver, location, start_page, worksheet)
-    finally:
-        workbook.close()
-    driver.close()
 
 def get_data_fast(start_page, item_count, location):
     try:
+        options = webdriver.ChromeOptions()
+        new_options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--remote-debugging-port=9230')
+        options.add_argument('--disable-gpu')
+        options.add_argument('--disable-setuid-sandbox')
+        options.add_argument("--window-size=1920,1080")
+        new_options.add_argument("--window-size=1920,1080")
+        driver = webdriver.Chrome(options=options)
         data = scrape_page_fast(driver, location, start_page, item_count)
     finally:
         driver.close()
@@ -272,5 +273,5 @@ def get_data_fast(start_page, item_count, location):
 
 
 # Start should be 20*k + 1, where k is an integer
-data = get_data_fast(1, 50, "521518")
+data = get_data_fast(1, 10, "anchorvale")
 print(data)

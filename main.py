@@ -36,7 +36,7 @@ def hello(start_page=1, item_count=20, location="Anchorvale Village"):
     section = section.find_element(By.CSS_SELECTOR, "div[class='listings']").find_element(By.CSS_SELECTOR, "div[class='container']")
     section.find_element(By.XPATH, ".//div[4]/app-flat-cards-categories").click()
     driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div").click() # Click Location Dropdown
-    driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div[@id='searchWrapper']/div[@id='address']").click()
+    driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div[@id='searchWrapper']/div[@id='address']/div[2]/ul/li/a").send_keys(Keys.ENTER)
     driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div/div/div/input").send_keys(location)
     driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div/div/div/input").send_keys(Keys.ENTER)
     
