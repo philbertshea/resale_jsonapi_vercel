@@ -15,14 +15,15 @@ ROOT = "https://homes.hdb.gov.sg/home/finding-a-flat"
 
 def scrape_page_fast(driver, location, start_page, item_count):
     data_array = []
-    driver.get(ROOT)
+    driver.get(ROOT)                                 
     section = driver.find_element(By.CSS_SELECTOR, "body").find_element(By.CSS_SELECTOR, "div[class='listing-portion']")
     section = section.find_element(By.CSS_SELECTOR, "div[class='listings']").find_element(By.CSS_SELECTOR, "div[class='container']")
-    section.find_element(By.XPATH, ".//div[4]/app-flat-cards-categories").click()
-    driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div").click() # Click Location Dropdown
-    driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div[@id='searchWrapper']/div[@id='address']/div[2]/ul/li/a").send_keys(Keys.ENTER)
-    driver.get_screenshot_as_file("screenshot.png")
-    print(driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div").text)
+    element = section.find_element(By.XPATH, ".//div[4]/app-flat-cards-categories")
+    driver.execute_script("arguments[0].click();", element)
+    element = driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div")
+    driver.execute_script("arguments[0].click();", element) # Click Location Dropdown
+    element = driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div[@id='searchWrapper']/div[@id='address']/div[2]/ul/li/a")
+    driver.execute_script("arguments[0].click();", element)
     driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div/div/div/input").send_keys(location)
     driver.find_element(By.XPATH, ".//app-search-filter/form/div/div/div/div/div/div/div/input").send_keys(Keys.ENTER)
     
@@ -33,11 +34,15 @@ def scrape_page_fast(driver, location, start_page, item_count):
         # Click "Right" button
             section = driver.find_element(By.CSS_SELECTOR, "body").find_element(By.CSS_SELECTOR, "div[class='listing-portion']")
             section = section.find_element(By.CSS_SELECTOR, "div[class='listings']").find_element(By.CSS_SELECTOR, "div[class='container']")
-            
-            section.find_element(By.XPATH, ".//div[5]/div/nav/ngb-pagination/ul/li[last()-1]").click()
+                
+            element = section.find_element(By.XPATH, ".//div[5]/div/nav/ngb-pagination/ul/li[last()-1]")
+            driver.execute_script("arguments[0].click();", element)
         except Exception as e:
             print(e)
-            break
+            driver.stop_client()
+            driver.close()
+            driver.quit()
+            return json.dumps(data_array)
 
     while count < item_count:
         try:
@@ -76,13 +81,20 @@ def scrape_page_fast(driver, location, start_page, item_count):
             section = driver.find_element(By.CSS_SELECTOR, "body").find_element(By.CSS_SELECTOR, "div[class='listing-portion']")
             section = section.find_element(By.CSS_SELECTOR, "div[class='listings']").find_element(By.CSS_SELECTOR, "div[class='container']")
                 
-            section.find_element(By.XPATH, ".//div[5]/div/nav/ngb-pagination/ul/li[last()-1]").click()
+            element = section.find_element(By.XPATH, ".//div[5]/div/nav/ngb-pagination/ul/li[last()-1]")
+            driver.execute_script("arguments[0].click();", element)
             
         except Exception as e:
             print("END")
             print(e)
-            break
+            driver.stop_client()
+            driver.close()
+            driver.quit()
+            return json.dumps(data_array)
 
+    driver.stop_client()
+    #driver.close()
+    driver.quit()
     return json.dumps(data_array)
 
 def scrape_page(driver, location, start_page, worksheet):
