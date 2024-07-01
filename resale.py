@@ -272,11 +272,13 @@ def get_data_fast(start_page, item_count, location):
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--remote-debugging-port=9230')
+        #options.add_argument('--remote-debugging-port=9230')
         options.add_argument('--disable-gpu')
         options.add_argument('--disable-setuid-sandbox')
         options.add_argument("--window-size=1920,1080")
         new_options.add_argument("--window-size=1920,1080")
+        user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+        options.add_argument(f'user-agent={user_agent}')
         driver = webdriver.Chrome(options=options)
         data = scrape_page_fast(driver, location, start_page, item_count)
     finally:
