@@ -63,11 +63,9 @@ def hello(start_page=1, item_count=20, location="Anchorvale Village"):
 
     while count < item_count:
         try:
-            if (item_count > count + 20) :
-                count_now = 20
-            else:
-                count_now = item_count - count
-            for i in range(1, count_now + 1, 1):
+            for i in range(1, 21, 1):
+                if (count >= item_count):
+                    break
                 try:
                     print(f"get {count} - {i}")
                     # driver.refresh()
