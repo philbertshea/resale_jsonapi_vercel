@@ -28,10 +28,9 @@ def hello(start_page=1, item_count=20, location="Anchorvale Village"):
     options.add_argument("--window-size=1920,1080")
     user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
     options.add_argument(f'user-agent={user_agent}')
-    options.binary_location = '/usr/local/bin/google-chrome'
 
     # Specify the path to the ChromeDriver executable
-    driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', options=options)
+    driver = webdriver.Chrome(options=options)
     data_array = []
     driver.get(ROOT)                                 
     section = driver.find_element(By.CSS_SELECTOR, "body").find_element(By.CSS_SELECTOR, "div[class='listing-portion']")
@@ -116,5 +115,5 @@ def hello(start_page=1, item_count=20, location="Anchorvale Village"):
     return json.dumps(data_array)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
+    port = 5000
     app.run(host='0.0.0.0', port=port)

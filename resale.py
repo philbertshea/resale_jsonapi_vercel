@@ -8,10 +8,36 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
 import xlsxwriter
+from flask import Flask, request
 import time
 import json
 
+app = Flask(__name__)
 ROOT = "https://homes.hdb.gov.sg/home/finding-a-flat"
+
+@app.route('/')
+def instructions():
+    return "<h1>Using the Resale JSON API</h1><br><p>This API contains two routes: <ol><li>Route 1: '/'. Contains Instructions to API</li><li>Route 2: '/location/start_page/item_count'. Returns JSON response based on three parameters: Location (Use _ as word divider), Start_page (each page contains 20 items. Use 1 as default), Item_count (total number of items to return). </li></ol> For example, to get the closest 50 listings to Anchorvale Village, use /anchorvale_village/1/50. "
+
+@app.route('/<location>/<start_page>/<item_count>')
+def hello(start_page=1, item_count=20, location="Anchorvale Village"):
+    start_page = int(start_page)
+    item_count = int(item_count)
+    location = location.replace("_", " ")
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--remote-debugging-port=9230')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--disable-setuid-sandbox')
+    options.add_argument("--window-size=1920,1080")
+    user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+    options.add_argument(f'user-agent={user_agent}')
+
+    # Specify the path to the ChromeDriver executable
+    driver = webdriver.Chrome(options=options)
+    return scrape_page_fast(driver, location, start_page, item_count)
 
 def scrape_page_fast(driver, location, start_page, item_count):
     data_array = []
@@ -93,7 +119,7 @@ def scrape_page_fast(driver, location, start_page, item_count):
             return json.dumps(data_array)
 
     driver.stop_client()
-    #driver.close()
+    driver.close()
     driver.quit()
     return json.dumps(data_array)
 
@@ -270,22 +296,17 @@ def get_data_fast(start_page, item_count, location):
         options = webdriver.ChromeOptions()
         new_options = webdriver.ChromeOptions()
         options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        #options.add_argument('--remote-debugging-port=9230')
-        options.add_argument('--disable-gpu')
-        options.add_argument('--disable-setuid-sandbox')
-        options.add_argument("--window-size=1920,1080")
-        new_options.add_argument("--window-size=1920,1080")
         user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
         options.add_argument(f'user-agent={user_agent}')
         driver = webdriver.Chrome(options=options)
         data = scrape_page_fast(driver, location, start_page, item_count)
     finally:
-        driver.close()
         return data
 
-
 # Start should be 20*k + 1, where k is an integer
-data = get_data_fast(1, 10, "anchorvale")
-print(data)
+#data = get_data_fast(1, 10, "anchorvale")
+#print(data)
+
+if __name__ == "__main__":
+    port = 5000
+    app.run(host='0.0.0.0', port=port)
